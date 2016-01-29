@@ -19,8 +19,9 @@
 # Ubuntu server14.04 
 # 32bit and 64bit
 #
-# Contributions from:
+# Contributions installer from:
 #
+#   Tyfix (sevan@tyfix.nl)
 #   Andy kimpe (andykimpe@gmail.com)
 
 # FOS_STREAMING_CORE/INSTALLER_VERSION
@@ -102,7 +103,6 @@ fi
     DB_PCKG="mysql-server"
     HTTP_PCKG="apache2"
     PHP_PCKG="apache2-mod-php5"
-fi
 
     pkginst="n"
     pkginstlist=""
