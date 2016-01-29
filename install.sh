@@ -182,9 +182,6 @@ if [[ "$PUBLIC_IP" == "" ]] ; then
     done
 fi
 
-echo "install in progress"
-exit
-
 # ***************************************
 # Installation really starts here
 
