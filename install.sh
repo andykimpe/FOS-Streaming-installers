@@ -173,7 +173,7 @@ if [[ "$PUBLIC_IP" == "" ]] ; then
                 [Qq]* ) exit;;
             esac
         else
-            read -e -p "All is ok. Do you want to install Sentora now (y/n)? " yn
+            read -e -p "All is ok. Do you want to install FOS-Streaming now (y/n)? " yn
             case $yn in
                 [Yy]* ) break;;
                 [Nn]* ) exit;;
