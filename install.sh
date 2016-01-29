@@ -141,7 +141,6 @@ if [[ "$tz" == "" && "$PUBLIC_IP" == "" ]] ; then
     # setup server timezone
         dpkg-reconfigure tzdata
         tz=$(cat /etc/timezone)
-    fi
 fi
 # clear timezone information to focus user on important notice
 clear
