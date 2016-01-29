@@ -134,7 +134,7 @@ extern_ip="$(wget -qO- http://andy.kimpe.free.fr/ip.php)"
 #local_ip=$(ifconfig eth0 | sed -En 's|.*inet [^0-9]*(([0-9]*\.){3}[0-9]*).*$|\1|p')
 local_ip=$(ip addr show | awk '$1 == "inet" && $3 == "brd" { sub (/\/.*/,""); print $2 }')
 
-if [[ "$tz" == "" && "$PUBLIC_IP == "" ]] ; then
+if [[ "$tz" == "" && "$PUBLIC_IP" == "" ]] ; then
     # Propose selection list for the time zone
     echo "Preparing to select timezone, please wait a few seconds..."
     $PACKAGE_INSTALLER tzdata
