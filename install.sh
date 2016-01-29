@@ -195,9 +195,9 @@ exec > >(tee "$logfile")
 exec 2>&1
 
 echo "Installer version $FOS_STREAMING_INSTALLER_VERSION"
-echo "Sentora core version $FOS_STREAMING_CORE_VERSION"
+echo "FOS-Streaming core version $FOS_STREAMING_CORE_VERSION"
 echo ""
-echo "Installing Sentora $FOS_STREAMING_CORE_VERSION at http://$PUBLIC_IP:8000"
+echo "Installing FOS-Streaming $FOS_STREAMING_CORE_VERSION at http://$PUBLIC_IP:8000"
 echo "on server under: $OS  $VER  $ARCH"
 uname -a
 
@@ -210,6 +210,20 @@ disable_file() {
 save_file() {
     cp "$1" "$1_saved_by_fos_streaming" &> /dev/null
 }
+
+#--- AppArmor must be disabled to avoid problems
+    [ -f /etc/init.d/apparmor ]
+    if [ $? = "0" ]; then
+        echo -e "\n-- Disabling and removing AppArmor, please wait..."
+        /etc/init.d/apparmor stop &> /dev/null
+        update-rc.d -f apparmor remove &> /dev/null
+        apt-get remove -y --purge apparmor* &> /dev/null
+        disable_file /etc/init.d/apparmor &> /dev/null
+        echo -e "AppArmor has been removed."
+    fi
+    
+echo "install in progress"
+exit
 
 PS3='Please enter your choice: '
 options=("Install full 32bit" "Install full 64bit" "Quit")
