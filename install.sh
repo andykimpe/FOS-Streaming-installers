@@ -101,8 +101,8 @@ fi
     }
     
     DB_PCKG="mysql-server"
-    HTTP_PCKG="apache2"
-    PHP_PCKG="apache2-mod-php5"
+    HTTP_PCKG="apache2 libapache2-mod-php5 phpmyadmin"
+    PHP_PCKG="php5 php5-mysql php5-fpm php5-curl"
 
     pkginst="n"
     pkginstlist=""
@@ -134,7 +134,7 @@ extern_ip="$(wget -qO- http://andy.kimpe.free.fr/ip.php)"
 #local_ip=$(ifconfig eth0 | sed -En 's|.*inet [^0-9]*(([0-9]*\.){3}[0-9]*).*$|\1|p')
 local_ip=$(ip addr show | awk '$1 == "inet" && $3 == "brd" { sub (/\/.*/,""); print $2 }')
 
-if [[ "$tz" == "" && "$PUBLIC_IP" == "" ]] ; then
+if [[ "$tz" == "" ]] ; then
     # Propose selection list for the time zone
     echo "Preparing to select timezone, please wait a few seconds..."
     $PACKAGE_INSTALLER tzdata
@@ -200,12 +200,12 @@ uname -a
 
 # Function to disable a file by appending its name with _disabled
 disable_file() {
-    mv "$1" "$1_disabled_by_fos_streaming" &> /dev/null
+    mv -f "$1" "$1_disabled_by_fos_streaming" &> /dev/null
 }
 
 # Function to save a file
 save_file() {
-    cp "$1" "$1_saved_by_fos_streaming" &> /dev/null
+    cp -f "$1" "$1_saved_by_fos_streaming" &> /dev/null
 }
 
 #--- AppArmor must be disabled to avoid problems
@@ -214,11 +214,76 @@ save_file() {
         echo -e "\n-- Disabling and removing AppArmor, please wait..."
         /etc/init.d/apparmor stop &> /dev/null
         update-rc.d -f apparmor remove &> /dev/null
-        apt-get remove -y --purge apparmor* &> /dev/null
+        apt-get purge -y apparmor* &> /dev/null
         disable_file /etc/init.d/apparmor &> /dev/null
         echo -e "AppArmor has been removed."
     fi
     
+mkdir -p "/etc/apt/sources.list.d.save"
+cp -Rf "/etc/apt/sources.list.d/*" "/etc/apt/sources.list.d.save" &> /dev/null
+rm -rf "/etc/apt/sources.list/*"
+save_file "/etc/apt/sources.list"
+cat > /etc/apt/sources.list <<EOF
+#Depots main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)-security main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)-updates main restricted universe multiverse
+EOF
+
+
+#--- List all already installed packages (may help to debug)
+echo -e "\n-- Listing of all packages installed:"
+dpkg --get-selection
+
+#--- Ensures that all packages are up to date
+echo -e "\n-- Updating+upgrading system, it may take some time..."
+apt-get -yqq update
+apt-get -yqq dist-upgrade
+
+#--- Install utility packages required by the installer and/or FOS-Streaming.
+echo -e "\n-- Downloading and installing required tools..."
+echo ""
+echo ""
+# Disable the DPKG prompts before we run the software install to enable fully automated install.
+export DEBIAN_FRONTEND=noninteractive
+echo -e "\n-- Downloading and installing libxml2-dev please wait ..."
+$PACKAGE_INSTALLER libxml2-dev
+echo -e "\n-- Downloading and installing libbz2-dev please wait ..."
+$PACKAGE_INSTALLER libbz2-dev
+echo -e "\n-- Downloading and installing libcurl4-openssl-dev please wait ..."
+$PACKAGE_INSTALLER libcurl4-openssl-dev
+echo -e "\n-- Downloading and installing libmcrypt-dev please wait ..."
+$PACKAGE_INSTALLER libmcrypt-dev
+echo -e "\n-- Downloading and installing libmhash2 please wait ..."
+$PACKAGE_INSTALLER libmhash2
+echo -e "\n-- Downloading and installing curl please wait ..."
+$PACKAGE_INSTALLER curl
+echo -e "\n-- Downloading and installing libmhash-dev please wait ..."
+$PACKAGE_INSTALLER libmhash-dev
+echo -e "\n-- Downloading and installing libpcre3 please wait ..."
+$PACKAGE_INSTALLER libpcre3
+echo -e "\n-- Downloading and installing libpcre3-dev please wait ..."
+$PACKAGE_INSTALLER libpcre3-dev
+echo -e "\n-- Downloading and installing make please wait ..."
+$PACKAGE_INSTALLER make
+echo -e "\n-- Downloading and installing build-essential please wait ..."
+$PACKAGE_INSTALLER build-essential
+echo -e "\n-- Downloading and installing libxslt1-dev please wait ..."
+$PACKAGE_INSTALLER libxslt1-dev
+echo -e "\n-- Downloading and installing git please wait ..."
+$PACKAGE_INSTALLER git
+echo -e "\n-- Downloading and installing libssl-dev please wait ..."
+$PACKAGE_INSTALLER libssl-dev
+echo -e "\n-- Downloading and installing $HTTP_PCKG please wait ..."
+$PACKAGE_INSTALLER $HTTP_PCKG
+echo -e "\n-- Downloading and installing $PHP_PCKG please wait ..."
+$PACKAGE_INSTALLER $PHP_PCKG
+echo -e "\n-- Downloading and installing $DB_PCKG  please wait ..."
+$PACKAGE_INSTALLER $MYSQL_PCKG
+
+
+rm -r /usr/src/FOS-Streaming
+
 echo "install in progress"
 exit
 
@@ -232,12 +297,7 @@ do
 		apt-get update && apt-get upgrade -y
 		echo "done"
 		echo "##Installing needed files##"
-		rm -r /usr/src/FOS-Streaming
-		apt-get install libxml2-dev libbz2-dev libcurl4-openssl-dev libmcrypt-dev libmhash2 curl -y
-		apt-get install libmhash-dev libpcre3 libpcre3-dev make build-essential libxslt1-dev git -y
-		apt-get install libssl-dev -y
-		apt-get install git -y
-		apt-get install apache2 libapache2-mod-php5 php5 php5-mysql mysql-server phpmyadmin php5-fpm php5-curl unzip -y
+		
 		echo "done"
 	    echo "##Installing and configuring nginx and the FOS-Streaming panel##"
 		#**************if you already have nginx remove it from this line**************#
