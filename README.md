@@ -15,9 +15,7 @@ https://github.com/zgelici/FOS-Streaming-v1
 ------------
 - login with a shell client(example putty.exe)
 ```sh
-- wget https://github.com/andykimpe/FOS-Streaming-installers/raw/master/install.sh
-- chmod 755 install.sh
-- ./install.sh
+- bash <(curl -L -Ss https://raw.githubusercontent.com/andykimpe/FOS-Streaming-installers/master/install.sh)
 ```
 - **[BACKEND]** Go to the website and login with username: admin and password: admin
 
