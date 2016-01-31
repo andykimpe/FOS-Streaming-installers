@@ -356,6 +356,7 @@ while true; do
         esac
     fi 
 done
+unzip FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
 cd /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
 mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/nginx.conf /usr/local/nginx/conf/nginx.conf
 mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/* /usr/local/nginx/html/
