@@ -100,9 +100,10 @@ fi
        dpkg -l "$1" 2> /dev/null | grep '^ii' &> /dev/null
     }
     
-    DB_PCKG="mysql-server"
+    DB_PCKG="mysql-server-5.5 mysql-server-core-5.5"
     HTTP_PCKG="apache2 libapache2-mod-php5 phpmyadmin"
     PHP_PCKG="php5 php5-mysql php5-fpm php5-curl"
+    MY_CNF_PATH="/etc/mysql/my.cnf"
     
     if [ "$ARCH" == "i386" ]; then
     FFMPEGFILE=ffmpeg-release-32bit-static.tar.xz
@@ -293,6 +294,9 @@ $PACKAGE_INSTALLER $HTTP_PCKG
 echo -e "\n-- Downloading and installing $PHP_PCKG please wait ..."
 $PACKAGE_INSTALLER $PHP_PCKG
 echo -e "\n-- Downloading and installing $DB_PCKG  please wait ..."
+# solve problems remove mysql package and database
+$PACKAGE_REMOVER $DB_PCKG
+rm -rf /var/lib/mysql
 $PACKAGE_INSTALLER $DB_PCKG
 
 cd /usr/src/
@@ -408,7 +412,6 @@ chmod -R 777 /usr/local/nginx/html/cache
 chown www-data:www-data /usr/local/nginx/conf
 rm -rf /etc/init.d/nginx
 cp /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx-init-ubuntu/nginx -O /etc/init.d/nginx
-rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
 chmod +x /etc/init.d/nginx
 update-rc.d nginx defaults
 ### database import
@@ -426,12 +429,58 @@ chmod 755 /usr/local/bin/ffmpeg
 chmod 755 /usr/local/bin/ffprobe
 cd /usr/src/
 rm -r /usr/src/ffmpeg*
-echo "installation finshed."
-echo "go to http://$PUBLIC_IP/phpmyadmin and upload the install.sql file which is located in https://github.com/andykimpe/FOS-Streaming-installers/raw/$FOS_STREAMING_INSTALLER_VERSION/install.sql"
-echo "configure /usr/local/nginx/html/config.php"
-echo "login: http://$PUBLIC_IP:8000 username: admin - password: admin"
-echo "After login go to settings and change web ip port to your public server ip"
-exit
+if [ -z "$mysqlpassword" ]; then
+    mysqlpassword=$(passwordgen);
+    mysqladmin -u root password "$mysqlpassword"
+fi
 
-echo "install in progress"
-exit
+# small cleaning of mysql access
+mysql -u root -p"$mysqlpassword" -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'";
+mysql -u root -p"$mysqlpassword" -e "DELETE FROM mysql.user WHERE User=''";
+mysql -u root -p"$mysqlpassword" -e "FLUSH PRIVILEGES";
+
+# remove test table that is no longer used
+mysql -u root -p"$mysqlpassword" -e "DROP DATABASE IF EXISTS test";
+
+# secure SELECT "hacker-code" INTO OUTFILE 
+sed -i "s|\[mysqld\]|&\nsecure-file-priv = /var/tmp|" $MY_CNF_PATH
+
+mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/install.sql
+adminpassword=$(passwordgen)
+adminpasswordmd5=$(echo -n $adminpassword | md5sum | awk '{print $1}')
+
+rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
+
+#--- Store the passwords for user reference
+echo "Server IP address : $PUBLIC_IP" >> /root/passwords.txt
+echo "Panel URL         : http://$PUBLIC_IP:8000" >> /root/passwords.txt
+echo "admin Password   : $adminpassword" >> /root/passwords.txt
+echo "" >> /root/passwords.txt
+echo "MySQL Root Password      : $mysqlpassword" >> /root/passwords.txt
+
+#--- Advise the admin that FOS-Streaming is now installed and accessible.
+echo "########################################################"  >/dev/tty
+echo " Congratulations FOS-Streaming has now been installed on your" >/dev/tty
+echo " server. Please review the log file left in /root/ for " >/dev/tty
+echo " any errors encountered during installation." >/dev/tty
+echo "" >/dev/tty
+echo " Login to FOS-Streaming at http://$PANEL_FQDN:8000" >/dev/tty
+echo " FOS-Streaming Username  : admin" >/dev/tty
+echo " FOS-Streaming Password  : $adminpassword" >/dev/tty
+echo "" >/dev/tty
+echo " MySQL Root Password      : $mysqlpassword" >/dev/tty
+echo "   (theses passwords are saved in /root/passwords.txt)" >/dev/tty
+echo "########################################################" >/dev/tty
+echo "" >/dev/tty
+
+# Wait until the user have read before restarts the server...
+if [[ "$INSTALL" != "auto" ]] ; then
+    while true; do
+        read -e -p "Restart your server now to complete the install (y/n)? " rsn
+        case $rsn in
+            [Yy]* ) break;;
+            [Nn]* ) exit;
+        esac
+    done
+    shutdown -r now
+fi
