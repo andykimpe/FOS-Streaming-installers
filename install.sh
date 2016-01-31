@@ -280,6 +280,8 @@ echo -e "\n-- Downloading and installing git please wait ..."
 $PACKAGE_INSTALLER git
 echo -e "\n-- Downloading and installing libssl-dev please wait ..."
 $PACKAGE_INSTALLER libssl-dev
+echo -e "\n-- Downloading and installing zip unzip please wait ..."
+$PACKAGE_INSTALLER zip unzip
 echo -e "\n-- Downloading and installing $HTTP_PCKG please wait ..."
 $PACKAGE_INSTALLER $HTTP_PCKG
 echo -e "\n-- Downloading and installing $PHP_PCKG please wait ..."
