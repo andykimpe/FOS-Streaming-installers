@@ -214,6 +214,12 @@ save_file() {
     cp -f "$1" "$1_saved_by_fos_streaming" &> /dev/null
 }
 
+passwordgen() {
+    l=$1
+    [ "$l" == "" ] && l=16
+    tr -dc A-Za-z0-9 < /dev/urandom | head -c ${l} | xargs
+}
+
 #--- AppArmor must be disabled to avoid problems
     [ -f /etc/init.d/apparmor ]
     if [ $? = "0" ]; then
@@ -310,7 +316,7 @@ while true; do
 done
 
 unzip nginx-rtmp-module-1.1.7.zip
-
+rm -rf nginx-rtmp-module-1.1.7.zip
 
 #--- Download nginx source archive
 echo -e "\n-- Downloading nginx source archive, Please wait, this may take several minutes, the installer will continue after this is complete!"
@@ -331,6 +337,7 @@ while true; do
 done
 
 tar -xzf nginx-1.9.2.tar.gz
+rm -rf nginx-1.9.2.tar.gz
 cd /usr/src/nginx-1.9.2/
 ./configure --add-module=/usr/src/nginx-rtmp-module-1.1.7 --with-http_ssl_module --with-http_secure_link_module
 make
@@ -338,16 +345,17 @@ make install
 
 
 rm -r /usr/local/nginx/conf/nginx.conf
+rm - rf /usr/src/nginx-rtmp-module-1.1.7 /usr/src/nginx-1.9.2/
 cd /usr/src/
-#--- Download FOS-Streaming archive from GitHub
-echo -e "\n-- Downloading FOS-Streaming, Please wait, this may take several minutes, the installer will continue after this is complete!"
-# Get latest sentora
+#--- Download FOS-Streaming core archive from GitHub
+echo -e "\n-- Downloading FOS-Streaming core, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest FOS-Streaming
 while true; do
     wget -nv -O FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip https://codeload.github.com/zgelici/FOS-Streaming/zip/$FOS_STREAMING_CORE_VERSION
     if [[ -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip ]]; then
         break;
     else
-        echo "Failed to download nginx rtmp module from Github"
+        echo "Failed to download FOS-Streaming core from Github"
         echo "If you quit now, you can run again the installer later."
         read -e -p "Press r to retry or q to quit the installer? " resp
         case $resp in
@@ -357,10 +365,32 @@ while true; do
     fi 
 done
 unzip FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
+rm -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
+#--- Download FOS-Streaming core archive from GitHub
+echo -e "\n-- Downloading FOS-Streaming installers, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest FOS-Streaming installers
+while true; do
+    wget -nv -O FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip https://codeload.github.com/andykimpe/FOS-Streaming-installers/zip/$FOS_STREAMING_INSTALLER_VERSION
+    if [[ -f FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip ]]; then
+        break;
+    else
+        echo "Failed to download FOS-Streaming installers from Github"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+unzip FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip
+rm -rf FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip
+
 cd /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
-mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/nginx.conf /usr/local/nginx/conf/nginx.conf
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx.conf /usr/local/nginx/conf/nginx.conf
 mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/* /usr/local/nginx/html/
 cd /usr/src/
+rm -rf /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 cd /usr/local/nginx/html/
@@ -377,17 +407,18 @@ mkdir /usr/local/nginx/html/cache
 chmod -R 777 /usr/local/nginx/html/cache
 chown www-data:www-data /usr/local/nginx/conf
 rm -rf /etc/init.d/nginx
-wget https://github.com/andykimpe/FOS-Streaming-installers/raw/master/nginx-init-ubuntu/nginx -O /etc/init.d/nginx
+cp /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx-init-ubuntu/nginx -O /etc/init.d/nginx
+rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
 chmod +x /etc/init.d/nginx
 update-rc.d nginx defaults
 ### database import
 service nginx start
 echo "done"
-
 echo "##Downloading and configuring ffmpeg##"
 cd /usr/src/
 wget http://johnvansickle.com/ffmpeg/releases/$FFMPEGFILE
 tar -xvf $FFMPEGFILE
+rm -rf $FFMPEGFILE
 cd ffmpeg*
 cp ffmpeg /usr/local/bin/ffmpeg
 cp ffprobe /usr/local/bin/ffprobe
