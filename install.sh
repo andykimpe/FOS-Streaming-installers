@@ -293,7 +293,7 @@ $PACKAGE_INSTALLER $HTTP_PCKG
 echo -e "\n-- Downloading and installing $PHP_PCKG please wait ..."
 $PACKAGE_INSTALLER $PHP_PCKG
 echo -e "\n-- Downloading and installing $DB_PCKG  please wait ..."
-$PACKAGE_INSTALLER $MYSQL_PCKG
+$PACKAGE_INSTALLER $DB_PCKG
 
 cd /usr/src/
 rm -rf *
