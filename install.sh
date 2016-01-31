@@ -103,6 +103,12 @@ fi
     DB_PCKG="mysql-server"
     HTTP_PCKG="apache2 libapache2-mod-php5 phpmyadmin"
     PHP_PCKG="php5 php5-mysql php5-fpm php5-curl"
+    
+    if [ "$ARCH" == "i386" ]; then
+    FFMPEGFILE=ffmpeg-release-32bit-static.tar.xz
+    else
+    FFMPEGFILE=ffmpeg-release-64bit-static.tar.xz
+    fi
 
     pkginst="n"
     pkginstlist=""
@@ -281,157 +287,117 @@ $PACKAGE_INSTALLER $PHP_PCKG
 echo -e "\n-- Downloading and installing $DB_PCKG  please wait ..."
 $PACKAGE_INSTALLER $MYSQL_PCKG
 
+cd /usr/src/
+rm -rf *
+#--- Download nginx rtmp module archive from GitHub
+echo -e "\n-- Downloading nginx rtmp module, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest sentora
+while true; do
+    wget -nv -O nginx-rtmp-module-1.1.7.zip https://codeload.github.com/arut/nginx-rtmp-module/zip/v1.1.7
+    if [[ -f nginx-rtmp-module-1.1.7.zip ]]; then
+        break;
+    else
+        echo "Failed to download nginx rtmp module from Github"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
 
-rm -r /usr/src/FOS-Streaming
+unzip nginx-rtmp-module-1.1.7.zip
+
+
+#--- Download nginx source archive
+echo -e "\n-- Downloading nginx source archive, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest sentora
+while true; do
+    wget -nv -O nginx-1.9.2.tar.gz http://nginx.org/download/nginx-1.9.2.tar.gz
+    if [[ -f nginx-1.9.2.tar.gz ]]; then
+        break;
+    else
+        echo "Failed to download nginx source archive"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+
+tar -xzf nginx-1.9.2.tar.gz
+cd /usr/src/nginx-1.9.2/
+./configure --add-module=/usr/src/nginx-rtmp-module-1.1.7 --with-http_ssl_module --with-http_secure_link_module
+make
+make install
+
+
+rm -r /usr/local/nginx/conf/nginx.conf
+cd /usr/src/
+#--- Download FOS-Streaming archive from GitHub
+echo -e "\n-- Downloading FOS-Streaming, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest sentora
+while true; do
+    wget -nv -O FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip https://codeload.github.com/zgelici/FOS-Streaming/zip/$FOS_STREAMING_CORE_VERSION
+    if [[ -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip ]]; then
+        break;
+    else
+        echo "Failed to download nginx rtmp module from Github"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+cd /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
+mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/nginx.conf /usr/local/nginx/conf/nginx.conf
+mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/* /usr/local/nginx/html/
+cd /usr/src/
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+cd /usr/local/nginx/html/
+composer require illuminate/database
+if ! grep -q "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffmpeg" /etc/sudoers; then
+    echo "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffmpeg" >> /etc/sudoers;
+fi
+if ! grep -q "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe" /etc/sudoers; then
+    echo "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe" >> /etc/sudoers;
+fi
+mkdir /usr/local/nginx/html/hl
+chmod -R 777 /usr/local/nginx/html/hl
+mkdir /usr/local/nginx/html/cache
+chmod -R 777 /usr/local/nginx/html/cache
+chown www-data:www-data /usr/local/nginx/conf
+rm -rf /etc/init.d/nginx
+wget https://github.com/andykimpe/FOS-Streaming-installers/raw/master/nginx-init-ubuntu/nginx -O /etc/init.d/nginx
+chmod +x /etc/init.d/nginx
+update-rc.d nginx defaults
+### database import
+service nginx start
+echo "done"
+
+echo "##Downloading and configuring ffmpeg##"
+cd /usr/src/
+wget http://johnvansickle.com/ffmpeg/releases/$FFMPEGFILE
+tar -xvf $FFMPEGFILE
+cd ffmpeg*
+cp ffmpeg /usr/local/bin/ffmpeg
+cp ffprobe /usr/local/bin/ffprobe
+chmod 755 /usr/local/bin/ffmpeg
+chmod 755 /usr/local/bin/ffprobe
+cd /usr/src/
+rm -r /usr/src/ffmpeg*
+echo "installation finshed."
+echo "go to http://$PUBLIC_IP/phpmyadmin and upload the install.sql file which is located in https://github.com/andykimpe/FOS-Streaming-installers/raw/$FOS_STREAMING_INSTALLER_VERSION/install.sql"
+echo "configure /usr/local/nginx/html/config.php"
+echo "login: http://$PUBLIC_IP:8000 username: admin - password: admin"
+echo "After login go to settings and change web ip port to your public server ip"
+exit
 
 echo "install in progress"
 exit
-
-PS3='Please enter your choice: '
-options=("Install full 32bit" "Install full 64bit" "Quit")
-select system in "${options[@]}"
-do
-    case $system in
-        "Install full 32bit")
-	echo "##Update and upgrade system##"
-		apt-get update && apt-get upgrade -y
-		echo "done"
-		echo "##Installing needed files##"
-		
-		echo "done"
-	    echo "##Installing and configuring nginx and the FOS-Streaming panel##"
-		#**************if you already have nginx remove it from this line**************#
-		cd /usr/src/
-		git clone https://github.com/arut/nginx-rtmp-module.git
-		wget http://nginx.org/download/nginx-1.9.2.tar.gz
-		tar -xzf nginx-1.9.2.tar.gz
-		cd /usr/src/nginx-1.9.2/
-		./configure --add-module=/usr/src/nginx-rtmp-module --with-http_ssl_module --with-http_secure_link_module
-		make
-		make install
-		#cp /usr/src/nginx-rtmp-module/stat.xsl /usr/local/nginx
-		 #**************NGINX INSTALL END LINE**************#
-		rm -r /usr/local/nginx/conf/nginx.conf
-		cd /usr/src/
-		git clone https://github.com/zgelici/FOS-Streaming.git
-		cd /usr/src/FOS-Streaming/
-		mv /usr/src/FOS-Streaming/nginx.conf /usr/local/nginx/conf/nginx.conf
-		mv /usr/src/FOS-Streaming/* /usr/local/nginx/html/
-		cd /usr/src/
-		curl -sS https://getcomposer.org/installer | php
-		mv composer.phar /usr/local/bin/composer
-		cd /usr/local/nginx/html/
-		composer require illuminate/database
-		echo 'www-data ALL = (root) NOPASSWD: /usr/local/bin/ffmpeg' >> /etc/sudoers
-		echo 'www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe' >> /etc/sudoers	
-		sed --in-place '/exit 0/d' /etc/rc.local
-		echo "sleep 10" >> /etc/rc.local
-		echo "/usr/local/nginx/sbin/nginx" >> /etc/rc.local
-		echo "exit 0" >> /etc/rc.local
-		mkdir /usr/local/nginx/html/hl
-		chmod -R 777 /usr/local/nginx/html/hl
-		mkdir /usr/local/nginx/html/cache
-		chmod -R 777 /usr/local/nginx/html/cache
-		chown www-data:www-data /usr/local/nginx/conf
-		wget https://raw.github.com/JasonGiedymin/nginx-init-ubuntu/master/nginx -O /etc/init.d/nginx
-        chmod +x /etc/init.d/nginx
-        update-rc.d nginx defaults
-		### database import
-		/usr/local/nginx/sbin/nginx
-		echo "done"
-            	echo "##Downloading and configuring ffmpeg 32bit##"
-		cd /usr/src/
-		wget http://johnvansickle.com/ffmpeg/builds/ffmpeg-git-32bit-static.tar.xz
-		tar -xJf ffmpeg-git-32bit-static.tar.xz
-		cd ffmpeg*
-		cp ffmpeg /usr/local/bin/ffmpeg
-		cp ffprobe /usr/local/bin/ffprobe
-		chmod 755 /usr/local/bin/ffmpeg
-		chmod 755 /usr/local/bin/ffprobe
-		cd /usr/src/
-		rm -r /usr/src/ffmpeg*
-		echo "installation finshed."
-		echo "go to http://host/phpmyadmin and upload the database.sql file which is located in /usr/local/nginx/html/"
-		echo "configure /usr/local/nginx/html/config.php"
-		echo "login: http://host:8000 username: admin - password: admin"
-		echo "After login go to settings and change web ip port to your public server ip"
-		exit
-            ;;
-        "Install full 64bit")
-		echo "##Update and upgrade system##"
-		apt-get update && apt-get upgrade -y
-		echo "done"
-		echo "##Installing needed files##"
-		rm -r /usr/src/FOS-Streaming
-		apt-get install libxml2-dev libbz2-dev libcurl4-openssl-dev libmcrypt-dev libmhash2 curl -y
-		apt-get install libmhash-dev libpcre3 libpcre3-dev make build-essential libxslt1-dev git -y
-		apt-get install libssl-dev -y
-		apt-get install git -y
-		apt-get install apache2 libapache2-mod-php5 php5 php5-mysql mysql-server phpmyadmin php5-fpm php5-curl unzip -y
-		echo "done"
-	    echo "##Installing and configuring nginx and the FOS-Streaming panel##"
-		#**************if you already have nginx remove it from this line**************#
-		cd /usr/src/
-		git clone https://github.com/arut/nginx-rtmp-module.git
-		wget http://nginx.org/download/nginx-1.9.2.tar.gz
-		tar -xzf nginx-1.9.2.tar.gz
-		cd /usr/src/nginx-1.9.2/
-		./configure --add-module=/usr/src/nginx-rtmp-module --with-http_ssl_module --with-http_secure_link_module
-		make
-		make install
-		#cp /usr/src/nginx-rtmp-module/stat.xsl /usr/local/nginx
-		 #**************NGINX INSTALL END LINE**************#
-		rm -r /usr/local/nginx/conf/nginx.conf
-		cd /usr/src/
-		git clone https://github.com/zgelici/FOS-Streaming.git
-		cd /usr/src/FOS-Streaming/
-		mv /usr/src/FOS-Streaming/nginx.conf /usr/local/nginx/conf/nginx.conf
-		mv /usr/src/FOS-Streaming/* /usr/local/nginx/html/
-		cd /usr/src/
-		curl -sS https://getcomposer.org/installer | php
-		mv composer.phar /usr/local/bin/composer
-		cd /usr/local/nginx/html/
-		composer require illuminate/database
-		echo 'www-data ALL = (root) NOPASSWD: /usr/local/bin/ffmpeg' >> /etc/sudoers
-		echo 'www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe' >> /etc/sudoers	
-		sed --in-place '/exit 0/d' /etc/rc.local
-		echo "sleep 10" >> /etc/rc.local
-		echo "/usr/local/nginx/sbin/nginx" >> /etc/rc.local
-		echo "exit 0" >> /etc/rc.local
-		
-		mkdir /usr/local/nginx/html/hl
-		chmod -R 777 /usr/local/nginx/html/hl
-		mkdir /usr/local/nginx/html/cache
-		chmod -R 777 /usr/local/nginx/html/cache
-		chown www-data:www-data /usr/local/nginx/conf
-		wget https://raw.github.com/JasonGiedymin/nginx-init-ubuntu/master/nginx -O /etc/init.d/nginx
-        chmod +x /etc/init.d/nginx
-        update-rc.d nginx defaults
-		### database import
-		/usr/local/nginx/sbin/nginx
-		echo "done"
-               echo "Downloading and configuring ffmpeg 64bit"
-		cd /usr/src/
-		wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
-		tar -xJf ffmpeg-release-64bit-static.tar.xz
-		cd ffmpeg*
-		cp ffmpeg /usr/local/bin/ffmpeg
-		cp ffprobe /usr/local/bin/ffprobe
-		chmod 755 /usr/local/bin/ffmpeg
-		chmod 755 /usr/local/bin/ffprobe
-		chown www-data:root /usr/local/nginx/html
-		cd /usr/src/
-		rm -r /usr/src/ffmpeg*
-		echo "installation finshed."
-		echo "go to http://host/phpmyadmin and upload the database.sql file which is located in /usr/local/nginx/html/"
-		echo "configure /usr/local/nginx/html/config.php"
-		echo "login: http://host:8000 username: admin - password: admin"
-		echo "After login go to settings and change web ip port to your public server ip"
-		exit
-            ;;
-        "Quit")
-            break
-            ;;
-        *) echo invalid option;;
-    esac
-done
