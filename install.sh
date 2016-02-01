@@ -411,7 +411,7 @@ mkdir /usr/local/nginx/html/cache
 chmod -R 777 /usr/local/nginx/html/cache
 chown www-data:www-data /usr/local/nginx/conf
 rm -rf /etc/init.d/nginx
-cp /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx-init-ubuntu/nginx -O /etc/init.d/nginx
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx-init-ubuntu/nginx /etc/init.d/nginx
 chmod +x /etc/init.d/nginx
 update-rc.d nginx defaults
 ### database import
