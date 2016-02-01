@@ -448,10 +448,11 @@ sed -i "s|\[mysqld\]|&\nsecure-file-priv = /var/tmp|" $MY_CNF_PATH
 mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/install.sql
 adminpassword=$(passwordgen)
 adminpasswordmd5=$(echo -n $adminpassword | md5sum | awk '{print $1}')
-mysql -u root -p"$mysqlpassword" -e "UPDATE `fos-streaming`.`admins` SET `password` = '$adminpasswordmd5' WHERE `admins`.`id` =1;"
 rm -rf /usr/local/nginx/html/config.php
 mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/config.php /usr/local/nginx/html/config.php
 sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$mysqlpassword|" /usr/local/nginx/html/config.php
+sed -i "s|YOUR_ADMIN_MYSQL_PASSWORD|$adminpasswordmd5|" /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/password.sql
+mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/password.sql
 rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
 
 #--- Store the passwords for user reference
