@@ -13,7 +13,7 @@
 #  MIT License for more details.
 #
 #  You should have received a copy of the MIT License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  along with this program.  If not, see <https://opensource.org/licenses/MIT>.
 #
 # Supported Operating Systems: 
 # Ubuntu server14.04 
