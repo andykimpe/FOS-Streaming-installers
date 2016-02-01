@@ -449,6 +449,9 @@ mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAM
 adminpassword=$(passwordgen)
 adminpasswordmd5=$(echo -n $adminpassword | md5sum | awk '{print $1}')
 mysql -u root -p"$mysqlpassword" -e "UPDATE `fos-streaming`.`admins` SET `password` = '$adminpasswordmd5' WHERE `admins`.`id` =1;"
+rm -rf /usr/local/nginx/html/config.php
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/config.php /usr/local/nginx/html/config.php
+sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$mysqlpassword|" /usr/local/nginx/html/config.php
 rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
 
 #--- Store the passwords for user reference
