@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `fos-streaming` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `fos-streaming`;
+CREATE DATABASE IF NOT EXISTS `FOS-Streaming` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `FOS-Streaming`;
 
 DROP TABLE IF EXISTS `admins`;
 CREATE TABLE IF NOT EXISTS `admins` (
