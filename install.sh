@@ -448,7 +448,7 @@ sed -i "s|\[mysqld\]|&\nsecure-file-priv = /var/tmp|" $MY_CNF_PATH
 mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/install.sql
 adminpassword=$(passwordgen)
 adminpasswordmd5=$(echo -n $adminpassword | md5sum | awk '{print $1}')
-
+mysql -u root -p"$mysqlpassword" -e "UPDATE `fos-streaming`.`admins` SET `password` = '$adminpasswordmd5' WHERE `admins`.`id` =1;"
 rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
 
 #--- Store the passwords for user reference
@@ -464,7 +464,7 @@ echo " Congratulations FOS-Streaming has now been installed on your" >/dev/tty
 echo " server. Please review the log file left in /root/ for " >/dev/tty
 echo " any errors encountered during installation." >/dev/tty
 echo "" >/dev/tty
-echo " Login to FOS-Streaming at http://$PANEL_FQDN:8000" >/dev/tty
+echo " Login to FOS-Streaming at http://$PUBLIC_IP:8000" >/dev/tty
 echo " FOS-Streaming Username  : admin" >/dev/tty
 echo " FOS-Streaming Password  : $adminpassword" >/dev/tty
 echo "" >/dev/tty
