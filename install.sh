@@ -298,6 +298,184 @@ echo -e "\n-- Downloading and installing $DB_PCKG  please wait ..."
 $PACKAGE_REMOVER $DB_PCKG
 rm -rf /var/lib/mysql
 $PACKAGE_INSTALLER $DB_PCKG
+echo -e "\n-- Downloading and installing python-software-properties please wait ..."
+$PACKAGE_INSTALLER python-software-properties
+echo -e "\n-- Downloading and installing libpopt0 please wait ..."
+$PACKAGE_INSTALLER libpopt0
+echo -e "\n-- Downloading and installing libpq-dev please wait ..."
+$PACKAGE_INSTALLER libpq-dev
+echo -e "\n-- Downloading and installing libpq5 please wait ..."
+$PACKAGE_INSTALLER libpq5
+echo -e "\n-- Downloading and installing libpspell-dev please wait ..."
+$PACKAGE_INSTALLER libpspell-dev
+echo -e "\n-- Downloading and installing libpthread-stubs0-dev please wait ..."
+$PACKAGE_INSTALLER libpthread-stubs0-dev
+echo -e "\n-- Downloading and installing libpython-stdlib please wait ..."
+$PACKAGE_INSTALLER libpython-stdlib
+echo -e "\n-- Downloading and installing libqdbm-dev please wait ..."
+$PACKAGE_INSTALLER libqdbm-dev
+echo -e "\n-- Downloading and installing libqdbm14 please wait ..."
+$PACKAGE_INSTALLER libqdbm14
+echo -e "\n-- Downloading and installing libquadmath0 please wait ..."
+$PACKAGE_INSTALLER libquadmath0
+echo -e "\n-- Downloading and installing librecode-dev please wait ..."
+$PACKAGE_INSTALLER librecode-dev
+echo -e "\n-- Downloading and installing librecode0 please wait ..."
+$PACKAGE_INSTALLER librecode0
+echo -e "\n-- Downloading and installing librtmp-dev please wait ..."
+$PACKAGE_INSTALLER librtmp-dev
+echo -e "\n-- Downloading and installing librtmp0 please wait ..."
+$PACKAGE_INSTALLER librtmp0
+echo -e "\n-- Downloading and installing libsasl2-dev please wait ..."
+$PACKAGE_INSTALLER libsasl2-dev
+echo -e "\n-- Downloading and installing libsasl2-modules please wait ..."
+$PACKAGE_INSTALLER libsasl2-modules
+echo -e "\n-- Downloading and installing libsctp-dev please wait ..."
+$PACKAGE_INSTALLER libsctp-dev
+echo -e "\n-- Downloading and installing libsctp1 please wait ..."
+$PACKAGE_INSTALLER libsctp1
+echo -e "\n-- Downloading and installing libsensors4 please wait ..."
+$PACKAGE_INSTALLER libsensors4
+echo -e "\n-- Downloading and installing libsensors4-dev please wait ..."
+$PACKAGE_INSTALLER libsensors4-dev
+echo -e "\n-- Downloading and installing libsm-dev please wait ..."
+$PACKAGE_INSTALLER libsm-dev
+echo -e "\n-- Downloading and installing libsm6 please wait ..."
+$PACKAGE_INSTALLER libsm6
+echo -e "\n-- Downloading and installing libsnmp-base please wait ..."
+$PACKAGE_INSTALLER libsnmp-base
+echo -e "\n-- Downloading and installing libsnmp-dev please wait ..."
+$PACKAGE_INSTALLER libsnmp-dev
+echo -e "\n-- Downloading and installing libsnmp-perl please wait ..."
+$PACKAGE_INSTALLER libsnmp-perl
+echo -e "\n-- Downloading and installing libsnmp30 please wait ..."
+$PACKAGE_INSTALLER libsnmp30
+echo -e "\n-- Downloading and installing libsqlite3-dev please wait ..."
+$PACKAGE_INSTALLER libsqlite3-dev
+echo -e "\n-- Downloading and installing libssh2-1 please wait ..."
+$PACKAGE_INSTALLER libssh2-1
+echo -e "\n-- Downloading and installing libssh2-1-dev please wait ..."
+$PACKAGE_INSTALLER libssh2-1-dev
+echo -e "\n-- Downloading and installing libstdc++-4.8-dev please wait ..."
+$PACKAGE_INSTALLER libstdc++-4.8-dev
+echo -e "\n-- Downloading and installing libstdc++6-4.7-dev please wait ..."
+$PACKAGE_INSTALLER libstdc++6-4.7-dev
+echo -e "\n-- Downloading and installing libsybdb5 please wait ..."
+$PACKAGE_INSTALLER libsybdb5
+echo -e "\n-- Downloading and installing libtasn1-3-dev please wait ..."
+$PACKAGE_INSTALLER libtasn1-3-dev
+echo -e "\n-- Downloading and installing libtasn1-6-dev please wait ..."
+$PACKAGE_INSTALLER libtasn1-6-dev
+echo -e "\n-- Downloading and installing libterm-readkey-perl please wait ..."
+$PACKAGE_INSTALLER libterm-readkey-perl
+echo -e "\n-- Downloading and installing libtidy-0.99-0 please wait ..."
+$PACKAGE_INSTALLER libtidy-0.99-0
+echo -e "\n-- Downloading and installing libtidy-dev please wait ..."
+$PACKAGE_INSTALLER libtidy-dev
+echo -e "\n-- Downloading and installing libtiff5 please wait ..."
+$PACKAGE_INSTALLER libtiff5
+echo -e "\n-- Downloading and installing libtiff5-dev please wait ..."
+$PACKAGE_INSTALLER libtiff5-dev
+echo -e "\n-- Downloading and installing libtiffxx5 please wait ..."
+$PACKAGE_INSTALLER libtiffxx5
+echo -e "\n-- Downloading and installing libtimedate-perl please wait ..."
+$PACKAGE_INSTALLER libtimedate-perl
+echo -e "\n-- Downloading and installing libtinfo-dev please wait ..."
+$PACKAGE_INSTALLER libtinfo-dev
+echo -e "\n-- Downloading and installing libtool please wait ..."
+$PACKAGE_INSTALLER libtool
+echo -e "\n-- Downloading and installing libtsan0 please wait ..."
+$PACKAGE_INSTALLER libtsan0
+echo -e "\n-- Downloading and installing libunistring0 please wait ..."
+$PACKAGE_INSTALLER libunistring0
+echo -e "\n-- Downloading and installing libvpx-dev please wait ..."
+$PACKAGE_INSTALLER libvpx-dev
+echo -e "\n-- Downloading and installing libvpx1 please wait ..."
+$PACKAGE_INSTALLER libvpx1
+echo -e "\n-- Downloading and installing libwrap0-dev please wait ..."
+$PACKAGE_INSTALLER libwrap0-dev
+echo -e "\n-- Downloading and installing libx11-6 please wait ..."
+$PACKAGE_INSTALLER libx11-6
+echo -e "\n-- Downloading and installing libx11-data please wait ..."
+$PACKAGE_INSTALLER libx11-data
+echo -e "\n-- Downloading and installing libx11-dev please wait ..."
+$PACKAGE_INSTALLER libx11-dev
+echo -e "\n-- Downloading and installing libxau-dev please wait ..."
+$PACKAGE_INSTALLER libxau-dev
+echo -e "\n-- Downloading and installing libxau6 please wait ..."
+$PACKAGE_INSTALLER libxau6
+echo -e "\n-- Downloading and installing libxcb1 please wait ..."
+$PACKAGE_INSTALLER libxcb1
+echo -e "\n-- Downloading and installing libxcb1-dev please wait ..."
+$PACKAGE_INSTALLER libxcb1-dev
+echo -e "\n-- Downloading and installing libxdmcp-dev please wait ..."
+$PACKAGE_INSTALLER libxdmcp-dev
+echo -e "\n-- Downloading and installing libxdmcp6 please wait ..."
+$PACKAGE_INSTALLER libxdmcp6
+echo -e "\n-- Downloading and installing libxmltok1 please wait ..."
+$PACKAGE_INSTALLER libxmltok1
+echo -e "\n-- Downloading and installing libxmltok1-dev please wait ..."
+$PACKAGE_INSTALLER libxmltok1-dev
+echo -e "\n-- Downloading and installing libxpm-dev please wait ..."
+$PACKAGE_INSTALLER libxpm-dev
+echo -e "\n-- Downloading and installing libxpm4 please wait ..."
+$PACKAGE_INSTALLER libxpm4
+echo -e "\n-- Downloading and installing libxslt1.1 please wait ..."
+$PACKAGE_INSTALLER libxslt1.1
+echo -e "\n-- Downloading and installing libxt-dev please wait ..."
+$PACKAGE_INSTALLER libxt-dev
+echo -e "\n-- Downloading and installing libxt6 please wait ..."
+$PACKAGE_INSTALLER libxt6
+echo -e "\n-- Downloading and installing linux-libc-dev please wait ..."
+$PACKAGE_INSTALLER linux-libc-dev
+echo -e "\n-- Downloading and installing m4 please wait ..."
+$PACKAGE_INSTALLER m4
+echo -e "\n-- Downloading and installing man-db please wait ..."
+$PACKAGE_INSTALLER man-db
+echo -e "\n-- Downloading and installing netcat-openbsd please wait ..."
+$PACKAGE_INSTALLER netcat-openbsd
+echo -e "\n-- Downloading and installing odbcinst1debian2 please wait ..."
+$PACKAGE_INSTALLER odbcinst1debian2
+echo -e "\n-- Downloading and installing openssl please wait ..."
+$PACKAGE_INSTALLER openssl
+echo -e "\n-- Downloading and installing patch please wait ..."
+$PACKAGE_INSTALLER patch
+echo -e "\n-- Downloading and installing pkg-config please wait ..."
+$PACKAGE_INSTALLER pkg-config
+echo -e "\n-- Downloading and installing po-debconf please wait ..."
+$PACKAGE_INSTALLER po-debconf
+echo -e "\n-- Downloading and installing python please wait ..."
+$PACKAGE_INSTALLER python
+echo -e "\n-- Downloading and installing python-minimal please wait ..."
+$PACKAGE_INSTALLER python-minimal
+echo -e "\n-- Downloading and installing python2.7 please wait ..."
+$PACKAGE_INSTALLER python2.7
+echo -e "\n-- Downloading and installing python2.7-minimal please wait ..."
+$PACKAGE_INSTALLER python2.7-minimal
+echo -e "\n-- Downloading and installing re2c please wait ..."
+$PACKAGE_INSTALLER re2c
+echo -e "\n-- Downloading and installing unixodbc please wait ..."
+$PACKAGE_INSTALLER unixodbc
+echo -e "\n-- Downloading and installing unixodbc-dev please wait ..."
+$PACKAGE_INSTALLER unixodbc-dev
+echo -e "\n-- Downloading and installing uuid-dev please wait ..."
+$PACKAGE_INSTALLER uuid-dev
+echo -e "\n-- Downloading and installing x11-common please wait ..."
+$PACKAGE_INSTALLER x11-common
+echo -e "\n-- Downloading and installing x11proto-core-dev please wait ..."
+$PACKAGE_INSTALLER x11proto-core-dev
+echo -e "\n-- Downloading and installing x11proto-input-dev please wait ..."
+$PACKAGE_INSTALLER x11proto-input-dev
+echo -e "\n-- Downloading and installing x11proto-kb-dev please wait ..."
+$PACKAGE_INSTALLER x11proto-kb-dev
+echo -e "\n-- Downloading and installing xorg-sgml-doctools please wait ..."
+$PACKAGE_INSTALLER xorg-sgml-doctools
+echo -e "\n-- Downloading and installing libjpeg8 please wait ..."
+$PACKAGE_INSTALLER libjpeg8
+echo -e "\n-- Downloading and installing xtrans-dev please wait ..."
+$PACKAGE_INSTALLER xtrans-dev
+echo -e "\n-- Downloading and installing zlib1g-dev please wait ..."
+$PACKAGE_INSTALLER zlib1g-dev
 
 cd /usr/src/
 rm -rf *
