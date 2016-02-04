@@ -504,8 +504,8 @@ rm -rf nginx-rtmp-module-1.1.7.zip
 echo -e "\n-- Downloading nginx source archive, Please wait, this may take several minutes, the installer will continue after this is complete!"
 # Get latest sentora
 while true; do
-    wget -nv -O nginx-1.9.2.tar.gz http://nginx.org/download/nginx-1.9.2.tar.gz
-    if [[ -f nginx-1.9.2.tar.gz ]]; then
+    wget -nv -O nginx-1.7.5.tar.gz http://nginx.org/download/nginx-1.7.5.tar.gz
+    if [[ -f nginx-1.7.5.tar.gz ]]; then
         break;
     else
         echo "Failed to download nginx source archive"
@@ -518,9 +518,9 @@ while true; do
     fi 
 done
 
-tar -xzf nginx-1.9.2.tar.gz
-rm -rf nginx-1.9.2.tar.gz
-cd /usr/src/nginx-1.9.2/
+tar -xzf nginx-1.7.5.tar.gz
+rm -rf nginx-1.7.5.tar.gz
+cd /usr/src/nginx-1.7.5/
 ./configure --add-module=/usr/src/nginx-rtmp-module-1.1.7 --with-http_ssl_module --with-http_secure_link_module
 make
 make install
