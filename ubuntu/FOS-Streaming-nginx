@@ -45,7 +45,7 @@ case "$1" in
                 status_of_proc "$daemon_NAME" "$DAEMON" "system-wide $daemon_NAME" && exit 0 || exit $?
                 ;;
         *)
-                echo "Usage: /etc/init.d/$daemon_NAME {start|stop|force-stop|restart|reload|force-reload|status}"
+                echo "Usage: service $daemon_NAME {start|stop|force-stop|restart|reload|force-reload|status}"
                 exit 1
                 ;;
 esac
