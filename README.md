@@ -1,3 +1,7 @@
+development version does not use
+
+version de développement ne pas utiliser
+
 ### Introduction
 ------------
 **FOS-Streaming-installers** -- Free IPTV panel for streaming video content
