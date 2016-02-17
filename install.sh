@@ -105,13 +105,7 @@ fi
     PHP_PCKG="php5 php5-mysql php5-fpm php5-curl"
     MY_CNF_PATH="/etc/mysql/my.cnf"
     
-    if [ "$ARCH" == "i386" ]; then
-    FFMPEGFILE=ffmpeg-release-32bit-static.tar.xz
-    else
-    FFMPEGFILE=ffmpeg-release-64bit-static.tar.xz
-    fi
-
-    pkginst="n"
+   pkginst="n"
     pkginstlist=""
     for package in "$DB_PCKG" "$HTTP_PCKG" "$PHP_PCKG" ; do
         if (inst "$package"); then
@@ -476,12 +470,113 @@ echo -e "\n-- Downloading and installing xtrans-dev please wait ..."
 $PACKAGE_INSTALLER xtrans-dev
 echo -e "\n-- Downloading and installing zlib1g-dev please wait ..."
 $PACKAGE_INSTALLER zlib1g-dev
-
+echo -e "\n-- Downloading and installing autoconf please wait ..."
+$PACKAGE_INSTALLER autoconf
+echo -e "\n-- Downloading and installing automake please wait ..."
+$PACKAGE_INSTALLER automake
+echo -e "\n-- Downloading and installing libass-dev please wait ..."
+$PACKAGE_INSTALLER libass-dev
+echo -e "\n-- Downloading and installing libfreetype6-dev please wait ..."
+$PACKAGE_INSTALLER libfreetype6-dev
+echo -e "\n-- Downloading and installing libsdl1.2-dev please wait ..."
+$PACKAGE_INSTALLER libsdl1.2-dev
+echo -e "\n-- Downloading and installing libtheora-dev please wait ..."
+$PACKAGE_INSTALLER libtheora-dev
+echo -e "\n-- Downloading and installing libva-dev please wait ..."
+$PACKAGE_INSTALLER libva-dev
+echo -e "\n-- Downloading and installing libvdpau-dev please wait ..."
+$PACKAGE_INSTALLER libvdpau-dev
+echo -e "\n-- Downloading and installing libvorbis-dev please wait ..."
+$PACKAGE_INSTALLER libvorbis-dev
+echo -e "\n-- Downloading and installing libxcb-shm0-dev please wait ..."
+$PACKAGE_INSTALLER libxcb-shm0-dev
+echo -e "\n-- Downloading and installing libxcb-xfixes0-dev please wait ..."
+$PACKAGE_INSTALLER libxcb-xfixes0-dev
+echo -e "\n-- Downloading and installing texinfo please wait ..."
+$PACKAGE_INSTALLER texinfo
+echo -e "\n-- Downloading and installing yasm please wait ..."
+$PACKAGE_INSTALLER yasm
+echo -e "\n-- Downloading and installing libx264-dev please wait ..."
+$PACKAGE_INSTALLER libx264-dev
+echo -e "\n-- Downloading and installing cmake please wait ..."
+$PACKAGE_INSTALLER cmake
+echo -e "\n-- Downloading and installing mercurial please wait ..."
+$PACKAGE_INSTALLER mercurial
+echo -e "\n-- Downloading and installing libmp3lame-dev please wait ..."
+$PACKAGE_INSTALLER libmp3lame-dev
+echo -e "\n-- Downloading and installing libopus-dev please wait ..."
+$PACKAGE_INSTALLER libopus-dev
+echo -e "\n-- Downloading and installing libavcodec-extra please wait ..."
+$PACKAGE_INSTALLER libavcodec-extra
+echo -e "\n-- Downloading and installing libavcodec-extra-54 please wait ..."
+$PACKAGE_INSTALLER libavcodec-extra-54
+echo -e "\n-- Downloading and installing libvo-aacenc0 please wait ..."
+$PACKAGE_INSTALLER libvo-aacenc0
+echo -e "\n-- Downloading and installing libvo-aacenc-dev please wait ..."
+$PACKAGE_INSTALLER libvo-aacenc-dev
+echo -e "\n-- Downloading and installing apache2-dev please wait ..."
+$PACKAGE_INSTALLER apache2-dev
+echo -e "\n-- Downloading and installing dh-apache2 please wait ..."
+$PACKAGE_INSTALLER dh-apache2
+echo -e "\n-- Downloading and installing libsystemd-daemon-dev please wait ..."
+$PACKAGE_INSTALLER libsystemd-daemon-dev
+echo -e "\n-- Downloading and installing bison please wait ..."
+$PACKAGE_INSTALLER bison
+echo -e "\n-- Downloading and installing chrpath please wait ..."
+$PACKAGE_INSTALLER chrpath
+echo -e "\n-- Downloading and installing debhelper please wait ..."
+$PACKAGE_INSTALLER debhelper
+echo -e "\n-- Downloading and installing dpkg-dev please wait ..."
+$PACKAGE_INSTALLER dpkg-dev
+echo -e "\n-- Downloading and installing flex please wait ..."
+$PACKAGE_INSTALLER flex
+echo -e "\n-- Downloading and installing freetds-dev please wait ..."
+$PACKAGE_INSTALLER freetds-dev
+echo -e "\n-- Downloading and installing libapr1-dev please wait ..."
+$PACKAGE_INSTALLER libapr1-dev
+echo -e "\n-- Downloading and installing libdb-dev please wait ..."
+$PACKAGE_INSTALLER libdb-dev
+echo -e "\n-- Downloading and installing libedit-dev please wait ..."
+$PACKAGE_INSTALLER libedit-dev
+echo -e "\n-- Downloading and installing libenchant-dev please wait ..."
+$PACKAGE_INSTALLER libenchant-dev
+echo -e "\n-- Downloading and installing libevent-dev please wait ..."
+$PACKAGE_INSTALLER libevent-dev
+echo -e "\n-- Downloading and installing libexpat1-dev please wait ..."
+$PACKAGE_INSTALLER libexpat1-dev
+echo -e "\n-- Downloading and installing libgcrypt11-dev please wait ..."
+$PACKAGE_INSTALLER libgcrypt11-dev
+echo -e "\n-- Downloading and installing libgd-dev please wait ..."
+$PACKAGE_INSTALLER libgd-dev
+echo -e "\n-- Downloading and installing libglib2.0-dev please wait ..."
+$PACKAGE_INSTALLER libglib2.0-dev
+echo -e "\n-- Downloading and installing libgmp3-dev please wait ..."
+$PACKAGE_INSTALLER libgmp3-dev
+echo -e "\n-- Downloading and installing libicu-dev please wait ..."
+$PACKAGE_INSTALLER libicu-dev
+echo -e "\n-- Downloading and installing libjpeg62-dev please wait ..."
+$PACKAGE_INSTALLER libjpeg62-dev
+echo -e "\n-- Downloading and installing libkrb5-dev please wait ..."
+$PACKAGE_INSTALLER libkrb5-dev
+echo -e "\n-- Downloading and installing libldap2-dev please wait ..."
+$PACKAGE_INSTALLER libldap2-dev
+echo -e "\n-- Downloading and installing libmagic-dev please wait ..."
+$PACKAGE_INSTALLER libmagic-dev
+echo -e "\n-- Downloading and installing libmysqlclient-dev please wait ..."
+$PACKAGE_INSTALLER libmysqlclient-dev
+echo -e "\n-- Downloading and installing libpam0g-dev please wait ..."
+$PACKAGE_INSTALLER libpam0g-dev
+echo -e "\n-- Downloading and installing libpng12-dev please wait ..."
+$PACKAGE_INSTALLER libpng12-dev
+echo -e "\n-- Downloading and installing systemtap-sdt-dev please wait ..."
+$PACKAGE_INSTALLER systemtap-sdt-dev
+echo -e "\n-- Downloading and installing netbase please wait ..."
+$PACKAGE_INSTALLER netbase
+useradd -s /sbin/nologin -U -d /home/fos-streaming -m fosstreaming
 cd /usr/src/
 rm -rf *
 #--- Download nginx rtmp module archive from GitHub
 echo -e "\n-- Downloading nginx rtmp module, Please wait, this may take several minutes, the installer will continue after this is complete!"
-# Get latest sentora
 while true; do
     wget -nv -O nginx-rtmp-module-1.1.7.zip https://codeload.github.com/arut/nginx-rtmp-module/zip/v1.1.7
     if [[ -f nginx-rtmp-module-1.1.7.zip ]]; then
@@ -496,16 +591,13 @@ while true; do
         esac
     fi 
 done
-
 unzip nginx-rtmp-module-1.1.7.zip
 rm -rf nginx-rtmp-module-1.1.7.zip
-
 #--- Download nginx source archive
 echo -e "\n-- Downloading nginx source archive, Please wait, this may take several minutes, the installer will continue after this is complete!"
-# Get latest sentora
 while true; do
-    wget -nv -O nginx-1.7.5.tar.gz http://nginx.org/download/nginx-1.7.5.tar.gz
-    if [[ -f nginx-1.7.5.tar.gz ]]; then
+    wget -nv -O nginx-1.9.9.tar.gz http://nginx.org/download/nginx-1.9.9.tar.gz
+    if [[ -f nginx-1.9.9.tar.gz ]]; then
         break;
     else
         echo "Failed to download nginx source archive"
@@ -517,23 +609,43 @@ while true; do
         esac
     fi 
 done
-
-tar -xzf nginx-1.7.5.tar.gz
-rm -rf nginx-1.7.5.tar.gz
-cd /usr/src/nginx-1.7.5/
-./configure --add-module=/usr/src/nginx-rtmp-module-1.1.7 --with-http_ssl_module --with-http_secure_link_module
+tar -xzf nginx-1.9.9.tar.gz
+rm -rf nginx-1.9.9.tar.gz
+cd /usr/src/nginx-1.9.9/
+./configure --prefix=/home/fos-streaming/fos/nginx --add-module=/usr/src/nginx-rtmp-module-1.1.7 --with-http_ssl_module --with-http_secure_link_module
 make
 make install
-
-
-rm -r /usr/local/nginx/conf/nginx.conf
+mv /home/fos-streaming/fos/nginx/sbin/nginx /home/fos-streaming/fos/nginx/sbin/nginx_fos
+rm -r /home/fos-streaming/fos/nginx/conf/nginx.conf /home/fos-streaming/fos/nginx/conf/fastcgi.conf
 rm - rf /usr/src/nginx-rtmp-module-1.1.7 /usr/src/nginx-1.9.2/
 cd /usr/src/
+#--- Download php source archive
+echo -e "\n-- Downloading php source archive, Please wait, this may take several minutes, the installer will continue after this is complete!"
+while true; do
+    wget -nv -O php-5.6.17.tar.bz2 http://be2.php.net/distributions/php-5.6.17.tar.bz2
+    if [[ -f php-5.6.17.tar.bz2 ]]; then
+        break;
+    else
+        echo "Failed to download php source archive"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+tar -xvf php-5.6.17.tar.bz2
+cd php-5.6.17
+./configure --prefix=/home/fos-streaming/fos/php --with-pdo-pgsql --with-zlib-dir --with-freetype-dir --enable-mbstring --with-libxml-dir=/usr --enable-soap --enable-calendar --with-curl --with-mcrypt --with-gd --with-pgsql --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-mysql --with-pdo-mysql --with-mysqli --with-jpeg-dir=/usr --with-png-dir=/usr --enable-gd-native-ttf --with-openssl --with-fpm-user=www-data --with-fpm-group=www-data --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm
+make
+make install
+cd /usr/src/
 #--- Download FOS-Streaming core archive from GitHub
-echo -e "\n-- Downloading FOS-Streaming core, Please wait, this may take several minutes, the installer will continue after this is complete!"
+echo -e "\n-- Downloading FOS-Streaming core on GitHub, Please wait, this may take several minutes, the installer will continue after this is complete!"
 # Get latest FOS-Streaming
 while true; do
-    wget -nv -O FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip https://codeload.github.com/zgelici/FOS-Streaming/zip/$FOS_STREAMING_CORE_VERSION
+    wget -nv -O FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip https://codeload.github.com/zgelici/FOS-Streaming-v1/zip/$FOS_STREAMING_CORE_VERSION
     if [[ -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip ]]; then
         break;
     else
@@ -549,7 +661,7 @@ done
 unzip FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
 rm -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
 #--- Download FOS-Streaming core archive from GitHub
-echo -e "\n-- Downloading FOS-Streaming installers, Please wait, this may take several minutes, the installer will continue after this is complete!"
+echo -e "\n-- Downloading FOS-Streaming installers on Github, Please wait, this may take several minutes, the installer will continue after this is complete!"
 # Get latest FOS-Streaming installers
 while true; do
     wget -nv -O FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip https://codeload.github.com/andykimpe/FOS-Streaming-installers/zip/$FOS_STREAMING_INSTALLER_VERSION
@@ -567,15 +679,15 @@ while true; do
 done
 unzip FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip
 rm -rf FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip
-
+mkdri -p /home/fos-streaming/fos/www/
+chmod -R 777 /home/fos-streaming/fos/www/
 cd /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
-mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx.conf /usr/local/nginx/conf/nginx.conf
-mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/* /usr/local/nginx/html/
+mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/* /home/fos-streaming/fos/www/
 cd /usr/src/
 rm -rf /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-cd /usr/local/nginx/html/
+cd /home/fos-streaming/fos/www/
 composer require illuminate/database
 if ! grep -q "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffmpeg" /etc/sudoers; then
     echo "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffmpeg" >> /etc/sudoers;
@@ -583,30 +695,146 @@ fi
 if ! grep -q "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe" /etc/sudoers; then
     echo "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe" >> /etc/sudoers;
 fi
-mkdir /usr/local/nginx/html/hl
-chmod -R 777 /usr/local/nginx/html/hl
-mkdir /usr/local/nginx/html/cache
-chmod -R 777 /usr/local/nginx/html/cache
-chown www-data:www-data /usr/local/nginx/conf
-rm -rf /etc/init.d/nginx
-mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx-init-ubuntu/nginx /etc/init.d/nginx
-chmod +x /etc/init.d/nginx
-update-rc.d nginx defaults
+mkdir /home/fos-streaming/fos/www/hl
+chmod -R 777 /home/fos-streaming/fos/www/hl
+mkdir /home/fos-streaming/fos/www/cache
+chmod -R 777 /home/fos-streaming/fos/www/cache
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx.conf /home/fos-streaming/fos/nginx/conf/nginx.conf
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/fastcgi.conf /home/fos-streaming/fos/nginx/conf/fastcgi.conf
+chown www-data:www-data /home/fos-streaming/fos/nginx/conf/
+rm -rf /home/fos-streaming/fos/php/lib/php.ini /home/fos-streaming/fos/php/etc/pear.conf /home/fos-streaming/fos/php/etc/php-fpm.conf
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/php.ini /home/fos-streaming/fos/php/lib/php.ini
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/pear.conf /home/fos-streaming/fos/php/etc/pear.conf
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/php-fpm.conf /home/fos-streaming/fos/php/etc/php-fpm.conf
+
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/ubuntu/FOS-Streaming-nginx /etc/init.d/FOS-Streaming-nginx
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/ubuntu/FOS-Streaming-php-fpm /etc/init.d/FOS-Streaming-php-fpm
+chmod +x /etc/init.d/FOS-Streaming-nginx
+chmod +x /etc/init.d/FOS-Streaming-php-fpm
+update-rc.d FOS-Streaming-nginx defaults
+update-rc.d FOS-Streaming-php-fpm defaults
 ### database import
-service nginx start
+service FOS-Streaming-nginx start
+service FOS-Streaming-php-fpm start
 echo "done"
-echo "##Downloading and configuring ffmpeg##"
+echo "##Downloading and conpile ffmpeg and dependency##"
 cd /usr/src/
-wget http://johnvansickle.com/ffmpeg/releases/$FFMPEGFILE
-tar -xvf $FFMPEGFILE
-rm -rf $FFMPEGFILE
-cd ffmpeg*
-cp ffmpeg /usr/local/bin/ffmpeg
-cp ffprobe /usr/local/bin/ffprobe
-chmod 755 /usr/local/bin/ffmpeg
-chmod 755 /usr/local/bin/ffprobe
+echo -e "\n-- Downloading fdk-aac, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest fdk-aac
+while true; do
+    wget -nv -O fdk-aac.tar.gz https://github.com/mstorsjo/fdk-aac/tarball/master
+    if [[ -f fdk-aac.tar.gz ]]; then
+        break;
+    else
+        echo "Failed to download fdk-aac"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+tar xzvf fdk-aac.tar.gz
+rm -rf fdk-aac.tar.gz
+cd mstorsjo-fdk-aac*
+autoreconf -fiv
+./configure --disable-shared
+make
+make install
 cd /usr/src/
-rm -r /usr/src/ffmpeg*
+rm -rf mstorsjo-fdk-aac*
+echo -e "\n-- Downloading libvpx, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest libvpx : version 1.5.0
+while true; do
+    wget -nv -O libvpx-1.5.0.tar.bz2 http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.5.0.tar.bz2
+    if [[ -f libvpx-1.5.0.tar.bz2 ]]; then
+        break;
+    else
+        echo "Failed to download libvpx"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+tar xjvf libvpx-1.5.0.tar.bz2
+rm -rf libvpx-1.5.0.tar.bz2
+cd libvpx-1.5.0
+./configure --disable-examples --disable-unit-tests
+make
+make install
+cd /usr/src/
+rm -rf libvpx-1.5.0
+echo -e "\n-- Downloading vo-aacenc, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest vo-aacenc : version 0.1.3
+while true; do
+    wget -nv -O vo-aacenc-0.1.3.tar.gz https://sourceforge.net/projects/opencore-amr/files/vo-aacenc/vo-aacenc-0.1.3.tar.gz
+    if [[ -f vo-aacenc-0.1.3.tar.gz ]]; then
+        break;
+    else
+        echo "Failed to download vo-aacenc"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+tar -xvf vo-aacenc-0.1.3.tar.gz
+rm -rf vo-aacenc-0.1.3.tar.gz
+cd vo-aacenc-0.1.3
+./configure
+make
+make install
+ldconfig
+cd /usr/src/
+rm -rf vo-aacenc-0.1.3
+echo -e "\n-- Downloading ffmpeg 2.8 on GitHub, Please wait, this may take several minutes, the installer will continue after this is complete!"
+# Get latest ffmpeg : version 2.8
+while true; do
+    wget -nv -O FFmpeg-release-2.8.tar.gz https://github.com/FFmpeg/FFmpeg/archive/release/2.8.tar.gz
+    if [[ -f FFmpeg-release-2.8.tar.gz ]]; then
+        break;
+    else
+        echo "Failed to download ffmpeg from GitHub"
+        echo "If you quit now, you can run again the installer later."
+        read -e -p "Press r to retry or q to quit the installer? " resp
+        case $resp in
+            [Rr]* ) continue;;
+            [Qq]* ) exit 3;;
+        esac
+    fi 
+done
+tar xvf FFmpeg-release-2.8.tar.gz
+rm -rf FFmpeg-release-2.8.tar.gz
+cd FFmpeg-release-2.8
+./configure \
+  --pkg-config-flags="--static" \
+  --enable-gpl \
+  --enable-libass \
+  --enable-libfdk-aac \
+  --enable-libfreetype \
+  --enable-libmp3lame \
+  --enable-libopus \
+  --enable-libtheora \
+  --enable-libvorbis \
+  --enable-libvpx \
+  --enable-libx264 \
+  --enable-libx265 \
+  --enable-nonfree \
+  --enable-version3 \
+  --enable-libvo-aacenc
+make
+rm -rf /usr/local/bin/ffmpeg
+rm -rf /usr/local/bin/ffprobe
+make install
+cd ..
+rm -rf FFmpeg-release-2.8
+
 if [ -z "$mysqlpassword" ]; then
     mysqlpassword=$(passwordgen);
     mysqladmin -u root password "$mysqlpassword"
@@ -626,9 +854,9 @@ sed -i "s|\[mysqld\]|&\nsecure-file-priv = /var/tmp|" $MY_CNF_PATH
 mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/install.sql
 adminpassword=$(passwordgen)
 adminpasswordmd5=$(echo -n $adminpassword | md5sum | awk '{print $1}')
-rm -rf /usr/local/nginx/html/config.php
-mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/config.php /usr/local/nginx/html/config.php
-sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$mysqlpassword|" /usr/local/nginx/html/config.php
+rm -rf /home/fos-streaming/fos/www/config.php
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/config.php /home/fos-streaming/fos/www/config.php
+sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$mysqlpassword|" /home/fos-streaming/fos/www/config.php
 sed -i "s|YOUR_ADMIN_MYSQL_PASSWORD|$adminpasswordmd5|" /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/password.sql
 mysql -u root -p"$mysqlpassword" < /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/password.sql
 rm -rf /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/
