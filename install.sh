@@ -616,8 +616,8 @@ cd /usr/src/nginx-1.9.9/
 make
 make install
 mv /home/fos-streaming/fos/nginx/sbin/nginx /home/fos-streaming/fos/nginx/sbin/nginx_fos
-rm -r /home/fos-streaming/fos/nginx/conf/nginx.conf /home/fos-streaming/fos/nginx/conf/fastcgi.conf
-rm - rf /usr/src/nginx-rtmp-module-1.1.7 /usr/src/nginx-1.9.2/
+rm -rf /home/fos-streaming/fos/nginx/conf/nginx.conf /home/fos-streaming/fos/nginx/conf/fastcgi.conf
+rm -rf /usr/src/nginx-rtmp-module-1.1.7 /usr/src/nginx-1.9.2/
 cd /usr/src/
 #--- Download php source archive
 echo -e "\n-- Downloading php source archive, Please wait, this may take several minutes, the installer will continue after this is complete!"
@@ -695,9 +695,9 @@ fi
 if ! grep -q "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe" /etc/sudoers; then
     echo "www-data ALL = (root) NOPASSWD: /usr/local/bin/ffprobe" >> /etc/sudoers;
 fi
-mkdir /home/fos-streaming/fos/www/hl
+mkdir -p /home/fos-streaming/fos/www/hl
 chmod -R 777 /home/fos-streaming/fos/www/hl
-mkdir /home/fos-streaming/fos/www/cache
+mkdir -p /home/fos-streaming/fos/www/cache
 chmod -R 777 /home/fos-streaming/fos/www/cache
 mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/nginx.conf /home/fos-streaming/fos/nginx/conf/nginx.conf
 mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/fastcgi.conf /home/fos-streaming/fos/nginx/conf/fastcgi.conf
