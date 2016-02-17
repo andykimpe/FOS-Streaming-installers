@@ -246,7 +246,7 @@ EOF
 
 #--- List all already installed packages (may help to debug)
 echo -e "\n-- Listing of all packages installed:"
-dpkg --get-selection
+dpkg --get-selections
 
 #--- Ensures that all packages are up to date
 echo -e "\n-- Updating+upgrading system, it may take some time..."
