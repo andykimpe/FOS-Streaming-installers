@@ -20,7 +20,7 @@
 # processname: FOS-nginx
 # config:      /home/fos-streaming/fos/nginx/conf/nginx.conf
 # pidfile:     /home/fos-streaming/fos/nginx/pid/nginx.pid
-# Provides:    /home/fos-streaming/fos/nginx/pid
+# Provides:    FOS-nginx
 #
 # Author:  Jason Giedymin
 #          <jason.giedymin AT gmail.com>.
