@@ -1,4 +1,3 @@
-/home/fos-streaming/fos/nginx/sbin/nginx_fos
 #! /bin/sh
 ### BEGIN INIT INFO
 # Provides:          FOS-nginx
