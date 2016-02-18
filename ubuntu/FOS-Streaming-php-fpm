@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-DAEMON="/home/fos-streaming/fos/php/sbin/php-fpm_fos" #ligne de commande du programme
+DAEMON="/home/fos-streaming/fos/php/sbin/php-fpm" #ligne de commande du programme
 daemon_OPT=""  #argument à utiliser par le programme
 DAEMONUSER="root" #utilisateur du programme
 daemon_NAME="Fos-Streaming-php-fpm" #Nom du programme (doit être identique à l'exécutable)
