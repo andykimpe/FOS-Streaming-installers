@@ -3,7 +3,7 @@
 DAEMON="/home/fos-streaming/fos/nginx/sbin/nginx_fos" #ligne de commande du programme
 daemon_OPT=""  #argument à utiliser par le programme
 DAEMONUSER="root" #utilisateur du programme
-daemon_NAME="Fos-Streaming-nginx" #Nom du programme (doit être identique à l'exécutable)
+daemon_NAME="FOS-Streaming-nginx" #Nom du programme (doit être identique à l'exécutable)
 
 PATH="/sbin:/bin:/usr/sbin:/usr/bin" #Ne pas toucher
 
@@ -45,7 +45,7 @@ case "$1" in
                 status_of_proc "$daemon_NAME" "$DAEMON" "system-wide $daemon_NAME" && exit 0 || exit $?
                 ;;
         *)
-                echo "Usage: service $daemon_NAME {start|stop|force-stop|restart|reload|force-reload|status}"
+                echo "Usage: /etc/init.d/$daemon_NAME {start|stop|force-stop|restart|reload|force-reload|status}"
                 exit 1
                 ;;
 esac
