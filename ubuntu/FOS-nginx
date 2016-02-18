@@ -3,7 +3,7 @@
 DAEMON="/home/fos-streaming/fos/nginx/sbin/nginx_fos" #ligne de commande du programme
 daemon_OPT=""  #argument à utiliser par le programme
 DAEMONUSER="root" #utilisateur du programme
-daemon_NAME="FOS-Streaming-nginx" #Nom du programme (doit être identique à l'exécutable)
+daemon_NAME="FOS-nginx" #Nom du programme (doit être identique à l'exécutable)
 
 PATH="/sbin:/bin:/usr/sbin:/usr/bin" #Ne pas toucher
 
