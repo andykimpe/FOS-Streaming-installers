@@ -640,12 +640,13 @@ cd php-5.6.17
 ./configure --prefix=/home/fos-streaming/fos/php --with-pdo-pgsql --with-zlib-dir --with-freetype-dir --enable-mbstring --with-libxml-dir=/usr --enable-soap --enable-calendar --with-curl --with-mcrypt --with-gd --with-pgsql --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-mysql --with-pdo-mysql --with-mysqli --with-jpeg-dir=/usr --with-png-dir=/usr --enable-gd-native-ttf --with-openssl --with-fpm-user=www-data --with-fpm-group=www-data --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm
 make
 make install
+mv /home/fos-streaming/fos/php/sbin/php-fpm /home/fos-streaming/fos/php/sbin/php-fpm_fos
 cd /usr/src/
 #--- Download FOS-Streaming core archive from GitHub
 echo -e "\n-- Downloading FOS-Streaming core on GitHub, Please wait, this may take several minutes, the installer will continue after this is complete!"
 # Get latest FOS-Streaming
 while true; do
-    wget -nv -O FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip https://codeload.github.com/zgelici/FOS-Streaming-v1/zip/$FOS_STREAMING_CORE_VERSION
+    wget -nv -O FOS-Streaming-v1-$FOS_STREAMING_CORE_VERSION.zip https://codeload.github.com/zgelici/FOS-Streaming-v1/zip/$FOS_STREAMING_CORE_VERSION
     if [[ -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip ]]; then
         break;
     else
@@ -658,8 +659,8 @@ while true; do
         esac
     fi 
 done
-unzip FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
-rm -f FOS-Streaming-$FOS_STREAMING_CORE_VERSION.zip
+unzip FOS-Streaming-v1-$FOS_STREAMING_CORE_VERSION.zip
+rm -f FOS-Streaming-v1-$FOS_STREAMING_CORE_VERSION.zip
 #--- Download FOS-Streaming core archive from GitHub
 echo -e "\n-- Downloading FOS-Streaming installers on Github, Please wait, this may take several minutes, the installer will continue after this is complete!"
 # Get latest FOS-Streaming installers
@@ -681,10 +682,8 @@ unzip FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip
 rm -rf FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION.zip
 mkdri -p /home/fos-streaming/fos/www/
 chmod -R 777 /home/fos-streaming/fos/www/
-cd /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
-mv /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/* /home/fos-streaming/fos/www/
-cd /usr/src/
-rm -rf /usr/src/FOS-Streaming-$FOS_STREAMING_CORE_VERSION/
+mv /usr/src/FOS-Streaming-v1-$FOS_STREAMING_CORE_VERSION/* /home/fos-streaming/fos/www/
+rm -rf /usr/src/FOS-Streaming-v1-$FOS_STREAMING_CORE_VERSION/
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 cd /home/fos-streaming/fos/www/
