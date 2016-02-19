@@ -706,16 +706,17 @@ rm -rf /home/fos-streaming/fos/php/lib/php.ini /home/fos-streaming/fos/php/etc/p
 mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/php.ini /home/fos-streaming/fos/php/lib/php.ini
 mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/pear.conf /home/fos-streaming/fos/php/etc/pear.conf
 mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/php-fpm.conf /home/fos-streaming/fos/php/etc/php-fpm.conf
-
-mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/ubuntu/FOS-Streaming-nginx /etc/init.d/FOS-Streaming-nginx
-mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/ubuntu/FOS-Streaming-php-fpm /etc/init.d/FOS-Streaming-php-fpm
-chmod +x /etc/init.d/FOS-Streaming-nginx
-chmod +x /etc/init.d/FOS-Streaming-php-fpm
-update-rc.d FOS-Streaming-nginx defaults
-update-rc.d FOS-Streaming-php-fpm defaults
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/ubuntu/FOS-nginx /etc/init.d/FOS-nginx
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/ubuntu/FOS-php-fpm /etc/init.d/FOS-php-fpm
+mkdir -p /home/fos-streaming/fos/php/etc/pool.d/ /home/fos-streaming/fos/logs/
+mv /usr/src/FOS-Streaming-installers-$FOS_STREAMING_INSTALLER_VERSION/www.conf /home/fos-streaming/fos/php/etc/pool.d/www.conf
+chmod +x /etc/init.d/FOS-nginx
+chmod +x /etc/init.d/FOS-php-fpm
+update-rc.d FOS-nginx defaults
+update-rc.d FOS-php-fpm defaults
 ### database import
-service FOS-Streaming-nginx start
-service FOS-Streaming-php-fpm start
+service FOS-nginx start
+service FOS-php-fpm start
 echo "done"
 echo "##Downloading and conpile ffmpeg and dependency##"
 cd /usr/src/
